@@ -1,0 +1,73 @@
+# Zależności i lokalny magazyn pakietów
+node_modules/
+.pnpm-store/
+
+# Wyniki budowania i pamięć podręczna
+.next/
+/out/
+/dist/
+/build/
+.cache/
+.turbo/
+*.tsbuildinfo
+/next-env.d.ts
+/src/generated/prisma/
+
+# Raporty testów
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+blob-report/
+.vitest/
+
+# Zmienne środowiskowe i klucze prywatne
+*.md
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Logi, pliki tymczasowe i lokalne dane bazy
+*.log
+*-debug.log*
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+/tmp/
+/temp/
+/.data/
+/.docker-data/
+/postgres-data/
+/docker/postgres/data/
+/backups/
+
+# Lokalne ustawienia edytorów i systemu
+.idea/
+.vscode/
+.vs/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Lokalne ustawienia narzędzi programistycznych
+.agents/
+.codex/
+AGENTS*.md
+.claude/
+CLAUDE*.md
+.gemini/
+GEMINI.md
+.cursor/
+.cursorrules
+.windsurf/
+.windsurfrules
+.aider*
+.github/copilot-instructions.md
+.github/instructions/

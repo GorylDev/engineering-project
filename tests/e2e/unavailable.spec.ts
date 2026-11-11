@@ -14,7 +14,7 @@ test("żywotność procesu nie udaje sprawnego połączenia bazy", async ({ requ
 });
 
 test("błąd katalogu ma bezpieczny komunikat i możliwość ponowienia", async ({ page }) => {
-  const response = await page.goto("/");
+  const response = await page.goto("/katalog-bazy");
   await expect(
     page.getByRole("heading", { name: "Nie możemy teraz wczytać katalogu" }),
   ).toBeVisible();

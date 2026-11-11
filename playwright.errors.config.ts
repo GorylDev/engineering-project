@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests/e2e",
-  testMatch: "unavailable.spec.ts",
+  testMatch: ["unavailable.spec.ts", "preview.spec.ts"],
   workers: 1,
   forbidOnly: true,
   retries: 0,

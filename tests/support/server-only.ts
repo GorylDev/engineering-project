@@ -1,3 +1,2 @@
-// Testy działają w Node.js. Zastępujemy wyłącznie znacznik granicy kompilatora.
-// Klient Prisma i połączenie PostgreSQL nie są zastępowane.
+// Vitest w Node.js potrzebuje zamiennika znacznika server-only.
 export {};

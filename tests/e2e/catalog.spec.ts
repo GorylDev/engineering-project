@@ -4,7 +4,7 @@ test("strona renderuje rekord PostgreSQL bez JavaScriptu klienta", async ({ brow
   const context = await browser.newContext({ javaScriptEnabled: false });
   try {
     const page = await context.newPage();
-    await page.goto("http://127.0.0.1:3100/");
+    await page.goto("http://127.0.0.1:3100/katalog-bazy");
     await expect(page.getByRole("heading", { name: "Przykład katalogowy Olfunara" })).toBeVisible();
     await expect(page.getByText("Wpis demonstracyjny", { exact: true })).toBeVisible();
     await expect(page.getByText(/Własne dane demonstracyjne projektu Olfunara/)).toBeVisible();

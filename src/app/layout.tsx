@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { Brand } from "@/components/brand";
+import "@fontsource-variable/inter";
+import "@fontsource/instrument-serif/latin-400.css";
+import "@fontsource/instrument-serif/latin-ext-400.css";
+import "@fontsource/instrument-serif/latin-400-italic.css";
+import "@fontsource/instrument-serif/latin-ext-400-italic.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: { default: "Olfunara — poznawaj świat zapachów", template: "%s · Olfunara" },
-  description: "Olfunara. Miejsce dla osób ciekawych świata perfum.",
+  description: "Odkrywaj perfumy według nut, rodziny zapachowej i okazji.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -18,21 +24,28 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           Przejdź do treści
         </a>
-        <header className="mx-auto flex max-w-6xl items-center justify-between border-b border-line px-6 py-7 sm:px-10">
-          <Link
-            href="/"
-            className="font-serif text-3xl tracking-tight"
-            aria-label="Olfunara — strona główna"
-          >
-            olfunara<span className="text-[#9b8054]">.</span>
-          </Link>
-          <span className="text-xs tracking-[0.13em] text-muted uppercase">Świat zapachów</span>
+        <header className="site-header">
+          <div className="shell header-inner">
+            <Brand />
+            <nav aria-label="Menu główne" className="site-nav">
+              <Link href="/#odkrywaj">Odkrywaj</Link>
+              <Link href="/#przewodnik">Przewodnik</Link>
+              <Link href="/#oferty">Gdzie kupić</Link>
+            </nav>
+            <Link href="/wybor" className="button button-outline header-action">
+              Pomóż mi wybrać
+            </Link>
+          </div>
         </header>
         {children}
-        <footer className="mx-auto mt-20 flex max-w-6xl flex-wrap gap-3 border-t border-line px-6 py-7 text-sm text-muted sm:px-10">
-          <span>Olfunara</span>
-          <span aria-hidden="true">·</span>
-          <span>Wersja demonstracyjna</span>
+        <footer className="site-footer">
+          <div className="shell footer-inner">
+            <Brand />
+            <p>Wersja demonstracyjna</p>
+            <Link href="/szukaj" className="text-link">
+              Katalog demonstracyjny
+            </Link>
+          </div>
         </footer>
       </body>
     </html>

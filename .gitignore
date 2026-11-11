@@ -1,8 +1,8 @@
-# Zależności i lokalny magazyn pakietów
+# Zaleznosci i lokalny magazyn pakietow
 node_modules/
 .pnpm-store/
 
-# Wyniki budowania i pamięć podręczna
+# Wyniki budowania i pamiec podreczna
 .next/
 /out/
 /dist/
@@ -13,7 +13,7 @@ node_modules/
 /next-env.d.ts
 /src/generated/prisma/
 
-# Raporty testów
+# Raporty testow
 coverage/
 .nyc_output/
 playwright-report/
@@ -21,8 +21,10 @@ test-results/
 blob-report/
 .vitest/
 
-# Zmienne środowiskowe i klucze prywatne
+# Dokumentacja lokalna
 *.md
+
+# Zmienne srodowiskowe i klucze prywatne
 .env
 .env.*
 !.env.example
@@ -48,7 +50,7 @@ blob-report/
 /docker/postgres/data/
 /backups/
 
-# Lokalne ustawienia edytorów i systemu
+# Lokalne ustawienia edytorow i systemu
 .idea/
 .vscode/
 .vs/
@@ -56,7 +58,7 @@ blob-report/
 Thumbs.db
 Desktop.ini
 
-# Lokalne ustawienia narzędzi programistycznych
+# Lokalne ustawienia narzedzi programistycznych
 .agents/
 .codex/
 AGENTS*.md

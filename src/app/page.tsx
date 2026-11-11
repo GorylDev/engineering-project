@@ -1,79 +1,163 @@
-import { listDemonstrationPerfumes } from "@/modules/catalog/server/queries";
+import Image from "next/image";
+import Link from "next/link";
+import stillLife from "../../public/olfunara-still-life.webp";
+import { previewPerfumes } from "@/modules/catalog/demo/preview-perfumes";
+import { occasions } from "@/modules/catalog/preview-types";
+import { PerfumeCard } from "@/modules/catalog/ui/perfume-card";
+import { previewSearchHref } from "@/modules/search/preview-search";
+import { SearchBox } from "@/modules/search/ui/search-box";
 
-export const dynamic = "force-dynamic";
-export const runtime = "nodejs";
+const occasionDescriptions: Record<keyof typeof occasions, string> = {
+  everyday: "Od porannej kawy po spacer",
+  work: "Do wspólnej przestrzeni",
+  evening: "Na kolację i wyjście",
+  outdoors: "Kiedy przydaje się lekkość",
+};
 
-export default async function HomePage() {
-  const perfumes = await listDemonstrationPerfumes();
+const occasionIcons: Record<keyof typeof occasions, string> = {
+  everyday: "✳",
+  work: "◇",
+  evening: "☾",
+  outdoors: "☼",
+};
+
+const guide = [
+  {
+    title: "Nuty",
+    description:
+      "Nuty opisują, co można wyczuć w kompozycji. Otwarcie to pierwsze wrażenie, serce rozwija się później, a baza zwykle zostaje najdłużej.",
+  },
+  {
+    title: "Rodziny",
+    description:
+      "Rodzina nazywa ogólny charakter zapachu. Drzewne kompozycje mogą przywoływać cedr lub sandałowiec, a świeże często kojarzą się z cytrusami albo zielenią.",
+  },
+  {
+    title: "Koncentracje",
+    description:
+      "EDT to woda toaletowa, a EDP to woda perfumowana. EDP zwykle ma wyższą koncentrację substancji zapachowych. Trwałość zależy też od kompozycji i skóry.",
+  },
+];
+
+export default function HomePage() {
   return (
-    <main id="tresc" className="mx-auto max-w-6xl px-6 sm:px-10">
-      <section className="grid gap-10 py-16 sm:py-24 lg:grid-cols-[1.4fr_1fr] lg:items-center">
-        <div>
-          <p className="mb-5 text-xs font-semibold tracking-[0.2em] text-leaf uppercase">
-            Odkrywanie zaczyna się od ciekawości
-          </p>
-          <h1 className="max-w-2xl font-serif text-5xl leading-[1.1] tracking-tight sm:text-7xl">
-            Poznaj swój świat zapachów.
+    <main id="tresc" tabIndex={-1} className="shell">
+      <section className="hero" aria-labelledby="hero-title">
+        <div className="hero-copy">
+          <p className="eyebrow hero-eyebrow">Odkrywanie perfum</p>
+          <h1 id="hero-title">
+            Znajdź zapach <em>dla siebie.</em>
           </h1>
-          <p className="mt-7 max-w-lg text-lg leading-8 text-muted">
-            Każdy zapach to inna opowieść. Poznawaj perfumy we własnym tempie i szukaj tego, co jest
-            bliskie Tobie.
+          <p className="hero-description">
+            Szukaj perfum według nazwy, nut lub okazji. Jeśli dopiero zaczynasz, kreator pomoże Ci
+            zawęzić wybór.
           </p>
-          <a
-            href="#katalog"
-            className="mt-9 inline-flex rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-white hover:bg-leaf"
-          >
-            Zobacz przykładowy wpis{" "}
-            <span className="ml-5" aria-hidden="true">
-              ↗
-            </span>
-          </a>
+          <SearchBox />
+          <div className="hero-actions">
+            <Link href="/wybor" className="text-link">
+              Pomóż mi wybrać <span aria-hidden="true">↗</span>
+            </Link>
+            <Link href="/szukaj" className="text-link">
+              Wyszukiwanie zaawansowane <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
-        <div
-          aria-hidden="true"
-          className="relative mx-auto hidden h-80 w-72 items-center justify-center overflow-hidden rounded-t-full border border-line bg-[#edf0e4] lg:flex"
-        >
-          <div className="absolute top-10 left-9 h-44 w-32 -rotate-35 rounded-[100%_0_100%_0] border border-[#b0bf9c]" />
-          <div className="absolute right-8 bottom-7 h-48 w-28 rotate-20 rounded-[100%_0_100%_0] border border-[#a0b18f]" />
-          <span className="z-10 font-serif text-[8rem] leading-none text-[#536d50]">o.</span>
+        <figure className="hero-image">
+          <Image
+            src={stillLife}
+            alt=""
+            sizes="(min-width: 1280px) 555px, (min-width: 800px) 47vw, 94vw"
+            preload
+          />
+        </figure>
+      </section>
+
+      <section id="odkrywaj" className="home-section" aria-labelledby="occasions-title">
+        <div className="section-heading">
+          <div>
+            <h2 id="occasions-title">Zapach na okazję</h2>
+            <p>Wybierz sytuację, w której chcesz go nosić.</p>
+          </div>
+        </div>
+        <ul className="occasion-grid">
+          {Object.entries(occasions).map(([id, label]) => {
+            const occasion = id as keyof typeof occasions;
+            return (
+              <li key={occasion}>
+                <Link className="occasion-card" href={previewSearchHref({ occasion })}>
+                  <span className="occasion-icon" aria-hidden="true">
+                    {occasionIcons[occasion]}
+                  </span>
+                  <span>
+                    <strong>{label}</strong>
+                    <small>{occasionDescriptions[occasion]}</small>
+                  </span>
+                  <span className="occasion-arrow" aria-hidden="true">
+                    →
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <section className="home-section" aria-labelledby="examples-title">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">Katalog demonstracyjny</p>
+            <h2 id="examples-title">Cztery różne kompozycje</h2>
+            <p>Fikcyjne profile do wypróbowania wyszukiwarki i kart perfum.</p>
+          </div>
+          <Link href="/szukaj" className="text-link">
+            Przejdź do katalogu <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+        <div className="perfume-grid">
+          {previewPerfumes.map((perfume) => (
+            <PerfumeCard key={perfume.slug} perfume={perfume} />
+          ))}
         </div>
       </section>
-      <section
-        id="katalog"
-        aria-labelledby="catalog-heading"
-        className="border-t border-line pt-10"
-      >
-        <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
-          <h2 id="catalog-heading" className="font-serif text-3xl">
-            Pierwsze spojrzenie
-          </h2>
-          <span className="rounded-full border border-line px-3 py-1 text-xs text-muted">
-            Dane demonstracyjne
-          </span>
+
+      <section id="przewodnik" className="home-section guide" aria-labelledby="guide-title">
+        <div className="section-heading">
+          <h2 id="guide-title">Krótki przewodnik po perfumach</h2>
         </div>
-        {perfumes.length === 0 ? (
-          <p className="rounded-2xl border border-line bg-white p-7 text-muted">
-            Nie ma jeszcze wpisów do wyświetlenia.
+        <div className="guide-grid">
+          {guide.map(({ title, description }) => (
+            <article key={title} className="guide-card">
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="oferty" className="home-section offers" aria-labelledby="offers-title">
+        <div>
+          <h2 id="offers-title">Gdzie kupić?</h2>
+          <p>
+            Porównanie ofert i sklep Olfunara są planowane. Wersja demonstracyjna nie zawiera cen
+            ani ofert sprzedaży.
           </p>
-        ) : (
-          <ul className="grid gap-5 md:grid-cols-2">
-            {perfumes.map((perfume) => (
-              <li
-                key={perfume.slug}
-                className="rounded-2xl border border-line bg-white/70 p-7 sm:p-9"
-              >
-                <p className="mb-4 text-xs font-semibold tracking-[0.1em] text-leaf uppercase">
-                  Wpis demonstracyjny
-                </p>
-                <h3 className="font-serif text-2xl">{perfume.name}</h3>
-                <p className="mt-4 leading-7 text-muted">{perfume.description}</p>
-                <p className="mt-6 border-t border-line pt-4 text-xs leading-5 text-muted">
-                  Pochodzenie: {perfume.sourceLabel}
-                </p>
-              </li>
-            ))}
-          </ul>
-        )}
+        </div>
+        <dl>
+          <div>
+            <dt>Oferty zewnętrzne</dt>
+            <dd>
+              Porównanie tej samej pojemności i koncentracji według ceny z dostawą. Przy każdej
+              ofercie pojawi się czas sprawdzenia ceny.
+            </dd>
+          </div>
+          <div>
+            <dt>Sklep Olfunara</dt>
+            <dd>
+              Własna oferta będzie oznaczona jako sprzedaż Olfunary. O kolejności ofert zdecyduje
+              wybrane kryterium porównania.
+            </dd>
+          </div>
+        </dl>
       </section>
     </main>
   );
